@@ -18,10 +18,9 @@ const distZip = path.join(desktopDir, 'KTLauncher-v1.0.2-Windows.zip');
 
 // 1. Prepare clean source code directory
 console.log(`1. Preparing clean source directory: ${sourceOutDir}...`);
-if (fs.existsSync(sourceOutDir)) {
-  fs.rmSync(sourceOutDir, { recursive: true, force: true });
+if (!fs.existsSync(sourceOutDir)) {
+  fs.mkdirSync(sourceOutDir, { recursive: true });
 }
-fs.mkdirSync(sourceOutDir, { recursive: true });
 
 // Copy essential source directories
 const dirsToCopy = ['agent', 'docs', 'out', 'scripts'];

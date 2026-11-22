@@ -49,10 +49,9 @@ console.log('   Asar Header Hash (SHA-256):', asarHash);
 
 // 4. Create fresh Windows distribution folder C:/Users/.../Desktop/KTLauncher-v1.0.2-Windows
 console.log(`\n4. Assembling Windows distribution at ${dist102Dir}...`);
-if (fs.existsSync(dist102Dir)) {
-  fs.rmSync(dist102Dir, { recursive: true, force: true });
+if (!fs.existsSync(dist102Dir)) {
+  fs.mkdirSync(dist102Dir, { recursive: true });
 }
-fs.mkdirSync(dist102Dir, { recursive: true });
 
 // Copy runtime binaries and assets from v1.0.1 base (never overwriting v1.0.1)
 const filesToCopy = [
