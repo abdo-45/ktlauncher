@@ -12,7 +12,7 @@
     "agent": {
       "filename": "ktlauncher-agent.jar",
       "signatureFilename": "ktlauncher-agent.jar.sig",
-      "expectedSha256": "3bef6ed0f2d1738c043f218fe8820621607bcd93b4f56f6f923a0578a236af74",
+      "expectedSha256": "635f19f6da464968ad08ac89025b90459bb0241434ea60e2dff12725b6bb09f5",
       "publisherPublicKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAGygFiY/sJ54QLwpVKH6VRSd/ZAMZY9ONywrga2yidwQ=\n-----END PUBLIC KEY-----\n"
     },
     "servers": {
@@ -27,7 +27,10 @@
           "description": "The largest Minecraft minigame server in the world.",
           "category": "minigames",
           "online": true,
-          "players": { "online": 45000, "max": 100000 },
+          "players": {
+            "online": 45000,
+            "max": 100000
+          },
           "ping": 25
         },
         {
@@ -38,7 +41,10 @@
           "description": "The massive Minecraft MMORPG experience.",
           "category": "survival",
           "online": true,
-          "players": { "online": 2500, "max": 10000 },
+          "players": {
+            "online": 2500,
+            "max": 10000
+          },
           "ping": 35
         },
         {
@@ -49,7 +55,10 @@
           "description": "Servidor hispano de Survival, Skyblock y Bedwars.",
           "category": "survival",
           "online": true,
-          "players": { "online": 1200, "max": 5000 },
+          "players": {
+            "online": 1200,
+            "max": 5000
+          },
           "ping": 40
         }
       ]

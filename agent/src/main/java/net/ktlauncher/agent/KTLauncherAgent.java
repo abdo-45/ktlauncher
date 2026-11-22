@@ -28,8 +28,9 @@ import java.util.Map;
  */
 public class KTLauncherAgent {
 
-    public static final String VERSION = "1.0.0";
-    public static final String VIRTUAL_HOST = "ktlauncher.local";
+    public static final String VERSION = "1.0.1";
+    public static final String MOJANG_TEXTURE_HOST = "textures.minecraft.net";
+    public static final String LEGACY_VIRTUAL_HOST = "ktlauncher.local";
     private static File skinsDir = null;
     private static final Map<String, byte[]> memorySkinCache = Collections.synchronizedMap(new HashMap<String, byte[]>());
 
@@ -74,10 +75,15 @@ public class KTLauncherAgent {
         }
 
         if (skinsDir != null && skinsDir.exists()) {
-            // Direct file: skins/<uuid>
+            // Direct file: skins/<uuid> or skins/<uuid>.png
             File direct = new File(skinsDir, cleanUuid);
             if (direct.exists() && direct.isFile()) {
                 byte[] d = readFile(direct);
+                if (d != null) return d;
+            }
+            File directPng = new File(skinsDir, cleanUuid + ".png");
+            if (directPng.exists() && directPng.isFile()) {
+                byte[] d = readFile(directPng);
                 if (d != null) return d;
             }
             // Subfolder structure: skins/<first-2-chars>/<uuid>
@@ -90,6 +96,21 @@ public class KTLauncherAgent {
             }
         }
         return null;
+    }
+
+    private static String getSkinModel(String uuid) {
+        String cleanUuid = uuid.replace("-", "").toLowerCase();
+        if (skinsDir != null && skinsDir.exists()) {
+            File modelFile = new File(skinsDir, cleanUuid + ".model");
+            if (modelFile.exists() && modelFile.isFile()) {
+                byte[] d = readFile(modelFile);
+                if (d != null) {
+                    String str = new String(d, StandardCharsets.UTF_8).trim().toLowerCase();
+                    if ("slim".equals(str) || "alex".equals(str)) return "slim";
+                }
+            }
+        }
+        return "classic";
     }
 
     private static byte[] readFile(File f) {
@@ -130,7 +151,7 @@ public class KTLauncherAgent {
             });
             System.out.println("[KTLauncher] URLStreamHandlerFactory registered for session intercept.");
         } catch (Throwable t) {
-            System.out.println("[KTLauncher] Notice: URL stream handler factory already set, using fallback property.");
+            System.out.println("[KTLauncher] Notice: Direct URL factory hook unavailable (" + t.getClass().getSimpleName() + "). Ensure JVM argument --add-opens java.base/java.net=ALL-UNNAMED is provided on Java 9+.");
         }
     }
 
@@ -164,8 +185,8 @@ public class KTLauncherAgent {
             String host = u.getHost();
             String path = u.getPath();
 
-            // 1. Intercept Virtual Skin Texture Endpoint: http://ktlauncher.local/skin/<uuid>.png
-            if (host != null && host.equalsIgnoreCase(VIRTUAL_HOST) && path != null && path.startsWith("/skin/")) {
+            // 1. Intercept Virtual Skin Texture Endpoint: http://textures.minecraft.net/skin/<uuid>.png or http://ktlauncher.local/skin/...
+            if (host != null && (host.equalsIgnoreCase(MOJANG_TEXTURE_HOST) || host.equalsIgnoreCase(LEGACY_VIRTUAL_HOST)) && path != null && path.contains("/skin/")) {
                 int lastSlash = path.lastIndexOf('/');
                 String uuidParam = path.substring(lastSlash + 1).replace(".png", "").replace("-", "");
                 byte[] skinBytes = getSkinData(uuidParam);
@@ -246,14 +267,16 @@ public class KTLauncherAgent {
             if (responseBytes != null) return;
 
             long timestamp = System.currentTimeMillis();
-            String skinUrl = "http://" + VIRTUAL_HOST + "/skin/" + uuid + ".png";
+            String skinUrl = "http://" + MOJANG_TEXTURE_HOST + "/skin/" + uuid + ".png";
+            String model = getSkinModel(uuid);
+            String modelMeta = "slim".equalsIgnoreCase(model) ? ",\"metadata\":{\"model\":\"slim\"}" : "";
 
             String texturesJson = "{"
                     + "\"timestamp\":" + timestamp + ","
                     + "\"profileId\":\"" + uuid + "\","
                     + "\"profileName\":\"KTPlayer\","
                     + "\"textures\":{"
-                    + "\"SKIN\":{\"url\":\"" + skinUrl + "\",\"metadata\":{\"model\":\"classic\"}}"
+                    + "\"SKIN\":{\"url\":\"" + skinUrl + "\"" + modelMeta + "}"
                     + "}"
                     + "}";
 
