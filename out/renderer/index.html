@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>KTLauncher 1.0.1</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https: starship-icon:; media-src 'self' https://*.xyrios.com; connect-src 'self' data: https://*.xyrios.com https://piston-meta.mojang.com https://launchermeta.mojang.com; frame-src 'self' https://www.youtube.com/embed/ https://www.youtube-nocookie.com/embed/"
+    />
+    <script type="module" crossorigin src="./assets/index-l-q7lo_9.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/rolldown-runtime-BQ-_32WO.js">
+    <link rel="modulepreload" crossorigin href="./assets/downloads.svelte-CNdXzp5v.js">
+    <link rel="modulepreload" crossorigin href="./assets/instances.svelte-B4um_Oar.js">
+    <link rel="modulepreload" crossorigin href="./assets/download-B9HlQT7k.js">
+    <link rel="stylesheet" crossorigin href="./assets/download-DpmwuVH-.css">
+    <link rel="stylesheet" crossorigin href="./assets/index-B1-rDFZO.css">
+    <style>
+      /* ========================================================= */
+      /* KTLauncher Cyber-Glassmorphic Dark Theme (English Locked) */
+      /* ========================================================= */
+
+      :root {
+        --kt-cyan: #00f5ff;
+        --kt-purple: #a855f7;
+        --kt-magenta: #ec4899;
+        --kt-bg-dark: #080c16;
+        --kt-card-bg: rgba(14, 20, 34, 0.65);
+        --kt-border: rgba(255, 255, 255, 0.08);
+        --kt-border-glow: rgba(0, 245, 255, 0.4);
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--kt-bg-dark) !important;
+        background-image: 
+          radial-gradient(circle at 10% 15%, rgba(0, 245, 255, 0.16) 0%, transparent 45%),
+          radial-gradient(circle at 90% 85%, rgba(168, 85, 247, 0.20) 0%, transparent 50%),
+          linear-gradient(180deg, rgba(8, 12, 22, 0.72) 0%, rgba(5, 7, 14, 0.92) 100%),
+          url('./assets/bg-ktlauncher.jpg') !important;
+        background-size: cover !important;
+        background-position: center center !important;
+        background-repeat: no-repeat !important;
+        background-attachment: fixed !important;
+        color: #f8fafc !important;
+        overflow: hidden;
+      }
+
+      /* 1. Complete Removal of Social/Promo Links */
+      button[aria-label="Discord"],
+      button[aria-label="X"],
+      button[aria-label="YouTube"],
+      button[aria-label="Reddit"],
+      button[aria-label*="Patreon"],
+      button[aria-label="Support on Patreon"],
+      button[aria-label="KTLauncher"],
+      button[title*="Patreon"],
+      a[href*="patreon"],
+      a[href*="discord"],
+      a[href*="xyrios"],
+      a[href*="skmedix"] {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        max-width: 0 !important;
+        min-width: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+
+      /* 2. Left Navigation Bar (both Modern w-20 and Classic w-76): High-End Floating Cyber Dock - ALWAYS VISIBLE & VERTICAL */
+      aside {
+        display: flex !important;
+        flex-direction: column !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+
+      aside.w-20, aside.w-76 {
+        display: flex !important;
+        flex-direction: column !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        backdrop-filter: blur(24px) saturate(180%) !important;
+        background: rgba(9, 13, 24, 0.78) !important;
+        border: 1px solid var(--kt-border) !important;
+        border-radius: 18px !important;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+        z-index: 20 !important;
+      }
+
+      aside nav {
+        display: block !important;
+        width: 100% !important;
+      }
+
+      /* 3. Main Dashboard: Expanded & Glassmorphic */
+      main {
+        flex: 1 1 0% !important;
+        backdrop-filter: blur(24px) saturate(160%) !important;
+        background: var(--kt-card-bg) !important;
+        border: 1px solid var(--kt-border) !important;
+        border-radius: 18px !important;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+        overflow-y: auto !important;
+      }
+
+      /* 4. Interactive Cards Glassmorphism & Cyber Hover */
+      .rounded-xl, .rounded-2xl {
+        backdrop-filter: blur(14px) !important;
+        background: rgba(16, 24, 38, 0.60) !important;
+        border: 1px solid var(--kt-border) !important;
+        transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+
+      .rounded-xl:hover, .rounded-2xl:hover {
+        border-color: var(--kt-border-glow) !important;
+        box-shadow: 0 12px 30px -8px rgba(0, 245, 255, 0.22), inset 0 1px 1px rgba(255, 255, 255, 0.12) !important;
+        transform: translateY(-2px) !important;
+      }
+
+      /* 5. Glowing Neon Buttons & Badges */
+      .primary-gradient, button.bg-accent, [variant="primary"] {
+        background: linear-gradient(135deg, var(--kt-cyan) 0%, var(--kt-purple) 100%) !important;
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        box-shadow: 0 4px 18px rgba(0, 245, 255, 0.35) !important;
+        border: none !important;
+        border-radius: 12px !important;
+      }
+
+      .primary-gradient:hover, button.bg-accent:hover, [variant="primary"]:hover {
+        box-shadow: 0 6px 26px rgba(168, 85, 247, 0.55) !important;
+        transform: translateY(-1px) scale(1.02) !important;
+      }
+
+      /* 6. Title Bar */
+      header, .titlebar-drag {
+        backdrop-filter: blur(20px) !important;
+        background: rgba(8, 12, 20, 0.88) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+      }
+
+      /* 7. Hide empty spans & badges */
+      span:empty { display: none !important; }
+
+      /* 8. Neon Cyber Scrollbars */
+      ::-webkit-scrollbar {
+        width: 6px !important;
+        height: 6px !important;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent !important;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, var(--kt-cyan) 0%, var(--kt-purple) 100%) !important;
+        border-radius: 10px !important;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #38bdf8 0%, #c084fc 100%) !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+  </body>
+</html>

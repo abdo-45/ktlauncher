@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Large binaries and build outputs
+*.exe
+*.dll
+*.pak
+*.bin
+*.dat
+*.asar
+*.zip
+*.tar.gz
+dist/
+build/
+release/
+
+# Logs & temp
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# User / Local runtime data
+*.bak
+accounts.json
+.ktlauncher/
+.sklauncher/
