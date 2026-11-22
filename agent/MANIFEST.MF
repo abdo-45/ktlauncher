@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Premain-Class: net.ktlauncher.agent.KTLauncherAgent
+Agent-Class: net.ktlauncher.agent.KTLauncherAgent
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
+Created-By: KTLauncher Build Pipeline
+
