@@ -1,6 +1,6 @@
 # KTLauncher — Offline Edition
 
-A full-featured offline Minecraft launcher (Offline Mode) with a modern interface enhanced by Nano Banana technology.
+A full-featured offline Minecraft launcher (Offline Mode) .
 
 ---
 
@@ -41,6 +41,12 @@ All your accounts, username settings, and IDs (UUIDs) are automatically and port
 3. As soon as you run the launcher, your accounts and current username will appear immediately without needing to re-enter them!
 
 ---
+
+## Appearance
+
+ALWAYS USE CLASSIC LAYOUT : 
+  <img width="901" height="811" alt="image" src="https://github.com/user-attachments/assets/b9290c97-2fdc-4e0f-9543-9e22a45afc0e" />
+
 
 ## ⚙️ Folder Structure (Files)
 
