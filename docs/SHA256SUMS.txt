@@ -1,0 +1,7 @@
+# KTLauncher v1.0.2 Release SHA-256 Checksums
+# Generated: 2026-11-22T18:08:29.035Z
+
+6c8044977fef8180b20e0cf4a7aa6ee56fa7acb248ee66825e29069ef955ee93  KTLauncher-v1.0.2-Windows.zip
+dcef7ebf4fe09c4625229c056626d703d499c5fccab66f7948a3a76e65d2011e  KTLauncher-Source-Code-v1.0.2.zip
+a74d3180e4672a58e93bb88444f29b9286664ac5ea49c36c7cfe111887ea34b4  ktlauncher.exe (v1.0.2)
+635f19f6da464968ad08ac89025b90459bb0241434ea60e2dff12725b6bb09f5  ktlauncher-agent.jar

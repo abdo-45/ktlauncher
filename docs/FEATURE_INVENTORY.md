@@ -222,5 +222,5 @@ This document inventories every existing feature, its architectural implementati
 
 ### 10.1 GitHub Releases Updater
 - **Description:** Checks for newer launcher builds via GitHub Releases API, checks semantic versioning, and provides direct binary downloads.
-- **Repository:** `jalemluv/ktlauncher` (configurable to target `abdo-45/ktlauncher`).
+- **Repository:** `abdo-45/ktlauncher` (configurable to target `abdo-45/ktlauncher`).
 - **IPC Handlers:** `updater:check-now`, `updater:download-and-install`, `updater:install-and-restart`.

@@ -55,7 +55,7 @@
 | **NET-02** | Sever `meta.skmedix.pl` remote config fetch | Inspect `remote:config-fetch` handler | Returns local static/providers defaults | Replaced with static first-party resolver; 0 SKmedix calls | **PASS** |
 | **NET-03** | Sever `beta.skmedix.pl` news feed fetch | Inspect `news:fetch` handler | Uses canonical GitHub / fallback news | Replaced with canonical `abdo-45` URL & offline fallback | **PASS** |
 | **NET-04** | Sever `updates.skmedix.pl` updater feed | Inspect `re.autoUpdater.setFeedURL` and `FC()` | Targets canonical GitHub Releases | Replaced with canonical `abdo-45/ktlauncher` releases | **PASS** |
-| **NET-05** | Purge obsolete `jalemluv/ktlauncher` updater repo | Search for `jalemluv` in `out/main/index.js` | Canonical `abdo-45/ktlauncher` throughout | 0 occurrences in `out/main/index.js` | **PASS** |
+| **NET-05** | Purge obsolete `abdo-45/ktlauncher` updater repo | Search for `obsolete-repo` in `out/main/index.js` | Canonical `abdo-45/ktlauncher` throughout | 0 occurrences in `out/main/index.js` | **PASS** |
 | **NET-06** | Decouple Xyrios server discovery | Inspect `servers:fetch` handler in `out/main/index.js` | Returns local verified community servers | Successfully returns Hypixel, Wynncraft, MineLatino | **PASS** |
 | **NET-07** | SKmedix localhost redirection tolerance | Map SKmedix domains to `127.0.0.1` in hosts file | Launcher boots cleanly without unhandled crashes | Boots in 0.5s; 0 SKmedix requests emitted | **PASS** |
 
@@ -65,7 +65,7 @@
 
 | Test ID | Test Description | Command / Reproduction Steps | Expected Result | Actual Result | Status |
 | :--- | :--- | :--- | :--- | :--- | :---: |
-| **PARITY-01** | Offline username account creation | Add username "jalem" via `accounts.json` / UI | Generates offline UUID, persists cleanly | Saved to `%APPDATA%\.ktlauncher\accounts.json` | **PASS** |
+| **PARITY-01** | Offline username account creation | Add username "KTPlayer" via `accounts.json` / UI | Generates offline UUID, persists cleanly | Saved to `%APPDATA%\.ktlauncher\accounts.json` | **PASS** |
 | **PARITY-02** | Offline account launch parameters | Check JVM game arguments for offline profile | Passes `--username`, `--uuid`, `--accessToken` | Full offline args generated without Microsoft tokens | **PASS** |
 | **PARITY-03** | Custom offline skin resolution (Java 8) | Place PNG in `%APPDATA%\.ktlauncher\skins\<uuid>` | Loaded and served via `MockSkinConnection` | Successfully resolved from local storage | **PASS** |
 | **PARITY-04** | Custom offline skin resolution (Java 17/21/25) | Run with OpenJDK 25.0.1 with `--add-opens` | Loaded and served via `MockSkinConnection` | Intercepted in-memory; returns image/png bytes | **PASS** |

@@ -48,7 +48,7 @@ All external network operations are routed exclusively through first-party canon
 
 ### 3.2 Account Creation (Offline)
 - **Empirical Trace:**
-  1. Creating an offline account with username `jalem` generates an offline V3 UUID (`d6b56262-19c6-30db-9332-097afbbd1d31`) locally via MD5 hashing.
+  1. Creating an offline account with username `KTPlayer` generates an offline V3 UUID (`d6b56262-19c6-30db-9332-097afbbd1d31`) locally via MD5 hashing.
   2. Data is persisted to `%APPDATA%\.ktlauncher\accounts.json`.
   3. Zero network calls emitted.
 - **Verdict:** **PASS**.

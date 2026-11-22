@@ -2,8 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 const crypto = require('crypto');
+const os = require('os');
 
-const baseDir = 'C:/Users/jalem/Desktop/KTLauncher-Source-Code/agent';
+const baseDir = __dirname;
 const srcFile = path.join(baseDir, 'src/main/java/net/ktlauncher/agent/KTLauncherAgent.java');
 const manifestFile = path.join(baseDir, 'MANIFEST.MF');
 const binDir = path.join(baseDir, 'bin');
@@ -11,8 +12,29 @@ const buildDir = path.join(baseDir, 'build');
 const outJar = path.join(buildDir, 'ktlauncher-agent.jar');
 const sigFile = path.join(buildDir, 'ktlauncher-agent.jar.sig');
 
-const javac = 'C:/Users/jalem/AppData/Roaming/.ktlauncher/runtime/java-runtime-epsilon/windows-x64/java-runtime-epsilon/bin/javac.exe';
-const jarTool = 'C:/Users/jalem/AppData/Roaming/.ktlauncher/runtime/java-runtime-epsilon/windows-x64/java-runtime-epsilon/bin/jar.exe';
+// Dynamically locate javac and jar
+function findJavaTool(toolName) {
+  // 1. JAVA_HOME
+  if (process.env.JAVA_HOME) {
+    const candidate = path.join(process.env.JAVA_HOME, 'bin', `${toolName}.exe`);
+    if (fs.existsSync(candidate)) return candidate;
+  }
+  // 2. KTLauncher runtime folder in AppData
+  const appData = process.env.APPDATA || path.join(os.homedir(), 'AppData', 'Roaming');
+  const ktRuntime = path.join(appData, '.ktlauncher', 'runtime');
+  if (fs.existsSync(ktRuntime)) {
+    const runtimes = fs.readdirSync(ktRuntime);
+    for (const r of runtimes) {
+      const candidate = path.join(ktRuntime, r, 'windows-x64', r, 'bin', `${toolName}.exe`);
+      if (fs.existsSync(candidate)) return candidate;
+    }
+  }
+  // 3. System PATH fallback
+  return toolName;
+}
+
+const javac = findJavaTool('javac');
+const jarTool = findJavaTool('jar');
 
 if (fs.existsSync(binDir)) fs.rmSync(binDir, { recursive: true, force: true });
 if (!fs.existsSync(buildDir)) fs.mkdirSync(buildDir, { recursive: true });
@@ -61,20 +83,11 @@ if (!isValid) {
 }
 console.log('✓ Ed25519 signature verified successfully against publisher public key!');
 
-// 6. Deploy to launcher runtime directories
-const deployTargets = [
-  'C:/Users/jalem/AppData/Roaming/.ktlauncher',
-  'C:/Users/jalem/Desktop/offlinlaunc',
-  'C:/Users/jalem/Desktop/KTLauncher-v1.0.1-Windows'
-];
-
-for (const target of deployTargets) {
-  if (fs.existsSync(target)) {
-    fs.copyFileSync(outJar, path.join(target, 'ktlauncher-agent.jar'));
-    fs.copyFileSync(sigFile, path.join(target, 'ktlauncher-agent.jar.sig'));
-    console.log(`Deployed agent to ${target}`);
-  }
-}
+// 6. Deploy to launcher root directory
+const rootDir = path.join(baseDir, '..');
+fs.copyFileSync(outJar, path.join(rootDir, 'ktlauncher-agent.jar'));
+fs.copyFileSync(sigFile, path.join(rootDir, 'ktlauncher-agent.jar.sig'));
+console.log(`Deployed agent to ${rootDir}`);
 
 // Write metadata manifest
 const meta = {

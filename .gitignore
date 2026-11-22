@@ -2,7 +2,7 @@
 node_modules/
 .pnpm-store/
 
-# Large binaries and build outputs
+# Build artifacts & binaries
 *.exe
 *.dll
 *.pak
@@ -15,19 +15,19 @@ dist/
 build/
 release/
 
+# Private Keys
+*.pem
+*.key
+
 # Logs & temp
 *.log
-npm-debug.log*
-yarn-debug.log*
-pnpm-debug.log*
+*.tmp
 
 # OS specific
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# User / Local runtime data
-*.bak
-accounts.json
+# User account data
+ktlauncher-accounts.json.bak
 .ktlauncher/
-.sklauncher/
